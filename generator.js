@@ -390,9 +390,23 @@ const generate = ({ size = 3, withComplexVowels = false, withNasals = false, wit
     parts[i++] = part
   }
 
-  let string = parts.join('-')
-    .replace(/\[v\+\]\-\[v\+\]/g, () => fetchVowels({ withComplexVowels, withNasals, withTones }))
-    .replace(/\[v\+\]/g, () => fetchVowels({ withComplexVowels, withNasals, withTones }))
+  let vowelless = parts.join('-').split(/\[v\+\]/)
+  for (let i = 0, n = vowelless.length; i < n; i++) {
+    let vowellessi = vowelless[i]
+    if (vowellessi == '-') {
+      vowelless.splice(i, 1)
+      i--
+    }
+  }
+
+  let vowelCount = vowelless.length - 1
+  let vowelled = vowelless.join('[v+]')
+  let accent = vowelCount > 1 ? randomize(0, vowelCount - 1) : -1
+
+  let vowelI = 0
+  let string = vowelled
+    // .replace(/\[v\+\]\-\[v\+\]/g, () => fetchVowels({ withComplexVowels, withNasals, withTones }))
+    .replace(/\[v\+\]/g, () => fetchVowels({ accent: vowelI++ == accent, withComplexVowels, withNasals, withTones }))
     .replace(/\-/g, '')
     .replace(/bb+/g, 'bb')
     .replace(/cc+/g, 'cc')
@@ -429,7 +443,7 @@ const generate = ({ size = 3, withComplexVowels = false, withNasals = false, wit
   return string
 }
 
-const fetchVowels = ({ withComplexVowels = false, withNasals = false, withTones = false }) => {
+const fetchVowels = ({ accent = false, withComplexVowels = false, withNasals = false, withTones = false }) => {
   const vowels = withComplexVowels ? simpleVowels.concat(complexVowels) : simpleVowels
   const v = vowels[randomize(0, vowels.length - 1)]
 
@@ -466,6 +480,10 @@ const fetchVowels = ({ withComplexVowels = false, withNasals = false, withTones 
         p.splice(i, 0, z)
       })
     }
+  }
+
+  if (accent) {
+    p[0] = `(${p[0]})`
   }
 
   return p.join('')
