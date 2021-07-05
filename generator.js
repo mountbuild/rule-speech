@@ -447,6 +447,14 @@ const fetchVowels = ({ withComplexVowels = false, withNasals = false, withTones 
 
   let p = parts.map(x => x.join(''))
 
+  if (withNasals) {
+    const n = nasals[randomize(0, nasals.length - 1)]
+
+    if (n) {
+      p = p.map(x => `${x}~`)
+    }
+  }
+
   if (withTones) {
     const t = tones[randomize(0, tones.length - 1)]
 
@@ -457,14 +465,6 @@ const fetchVowels = ({ withComplexVowels = false, withNasals = false, withTones 
         const z = `${letter}${x}`.trim()
         p.splice(i, 0, z)
       })
-    }
-  }
-
-  if (withNasals) {
-    const n = nasals[randomize(0, nasals.length - 1)]
-
-    if (n) {
-      p = p.map(x => `${x}~`)
     }
   }
 
