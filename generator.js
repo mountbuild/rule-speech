@@ -200,6 +200,7 @@ const consonants = [
   'yy-[v+]',
   'zy-[v+]',
   'Zy-[v+]',
+  '\'y-[v+]',
   'br-[v+]',
   'cr-[v+]',
   'Cr-[v+]',
@@ -209,15 +210,8 @@ const consonants = [
   'djr-[v+]',
   'kr-[v+]',
   'Kr-[v+]',
-  'lr-[v+]',
-  'Lr-[v+]',
-  'mr-[v+]',
-  'Mr-[v+]',
-  'nr-[v+]',
-  'nr-[v+]',
   'pr-[v+]',
   'rr-[v+]',
-  'Rr-[v+]',
   'sr-[v+]',
   'Sr-[v+]',
   'tr-[v+]',
@@ -229,7 +223,6 @@ const consonants = [
   'wr-[v+]',
   'xr-[v+]',
   'Xr-[v+]',
-  'yr-[v+]',
   'zr-[v+]',
   'Zr-[v+]',
   'bh-[v+]',
@@ -277,6 +270,12 @@ const consonants = [
   'spr-[v+]',
   'spw-[v+]',
   'spl-[v+]',
+  'str-[v+]',
+  '[v+]-gc',
+  '[v+]-ngc',
+  '[v+]-fc',
+  '[v+]-fd',
+  '[v+]-ft',
 ]
 
 const simpleVowels = [
@@ -499,7 +498,7 @@ const log = text => {
   })
 }
 let i = 0
-while (i++ < 2000) {
+while (i++ < 3000) {
   log(generate({ size: 1 }))
 }
 i = 0
@@ -523,11 +522,11 @@ while (i++ < 1000) {
   log(generate({ size: 1, withComplexVowels: true }))
 }
 i = 0
-while (i++ < 1000) {
+while (i++ < 500) {
   log(generate({ size: 2, withComplexVowels: true }))
 }
 i = 0
-while (i++ < 1000) {
+while (i++ < 500) {
   log(generate({ size: 3 }))
 }
 
