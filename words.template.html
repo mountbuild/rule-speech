@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 1200px;
+      }
+
+      @font-face {
+        font-family: Hanakana;
+        src: url('https://github.com/mountbuild/tone-script/blob/build/font.otf?raw=true');
+      }
+
+      @font-face {
+        font-family: Noto;
+        src: url('https://github.com/mountbuild/tone-script/blob/build/noto.ttf?raw=true');
+      }
+
+      .list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #content {
+        display: flex;
+        flex-wrap: wrap;
+        width: 1060px;
+        background: #fafafa;
+        padding: 20px;
+        text-align: center;
+        justify-content: center;
+      }
+
+      .row {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 40px;
+        text-align: center;
+      }
+
+      .row:nth-child(2n + 1) {
+        background: #fafafa;
+      }
+
+      .row:nth-child(2n) {
+        background: #fff;
+      }
+
+      .hanakana {
+        font-size: 90px;
+        font-family: Hanakana;
+        position: relative;
+        top: -6px;
+      }
+
+      .ascii {
+        font-size: 20px;
+        font-family: Noto;
+        opacity: 0.4;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class='list'><div id='content'></div></div>
+    <script>
+      const WORDS = {WORDS}
+
+      WORDS.forEach(({ text, tone, call }) => {
+        let c = document.querySelector('#content')
+        let d = document.createElement('div')
+        d.classList.add('row')
+        d.innerHTML = `
+        <span class='hanakana'>${tone}</span>
+        <span class='ascii'>${call}</span>
+        `
+        c.appendChild(d)
+      })
+
+      window.DONE = true
+    </script>
+  </body>
+</html>
