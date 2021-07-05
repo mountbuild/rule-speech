@@ -26,12 +26,14 @@ const nasals = [
 ]
 
 const sizes = [
-  [1, 30],
-  [2, 10],
-  [3, 5],
-  [4, 3],
-  [5, 2],
-  [6, 1]
+  [1, 50],
+  [2, 30],
+  [3, 20],
+  [4, 10],
+  [5, 1],
+  [6, 0.1],
+  [7, 0.1],
+  [8, 0.1]
 ]
 
 const consonants = [
@@ -477,13 +479,21 @@ const fetchVowels = ({ accent = false }) => {
   }
 
   if (p.length == 1) {
-    const t = getRandomElement(singleTones).trim()
-    p[0] = `${p[0]}${t}`
-  } else {
-    const t = getRandomElement(dualTones)
-    t.split('').forEach((x, i) => {
-      p[i] = `${p[i]}${x}`.trim()
+    const t = getRandomElement(tones)
+    p = t.split('').map(x => {
+      return `${p[0]}${x}`.trim()
     })
+  } else {
+    const letter = p.shift()
+    const remainder = p.join('')
+    const t = getRandomElement(tones)
+    p.length = 0
+    t.split('').forEach((x, i) => {
+      p[i] = `${letter}${x}`.trim()
+    })
+    if (letter != remainder) {
+      p.push(remainder)
+    }
   }
 
   if (accent) {
