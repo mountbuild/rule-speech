@@ -22,18 +22,15 @@ const tones = singleTones.concat(dualTones)
 
 const nasals = [
   ['', 20],
-  ['~', 1],
+  ['M', 1],
 ]
 
 const sizes = [
   [1, 50],
   [2, 30],
-  [3, 20],
-  [4, 10],
+  [3, 10],
+  [4, 4],
   [5, 1],
-  [6, 0.1],
-  [7, 0.1],
-  [8, 0.1]
 ]
 
 const consonants = [
@@ -81,7 +78,6 @@ const consonants = [
   ['l[v+]', 100],
   ['L[v+]', 100],
   ['m[v+]', 100],
-  ['M[v+]', 100],
   ['n[v+]', 100],
   ['n[v+]', 100],
   ['p[v+]', 100],
@@ -124,7 +120,6 @@ const consonants = [
   ['[v+]ll[v+]', 50],
   ['[v+]LL[v+]', 50],
   ['[v+]mm[v+]', 50],
-  ['[v+]MM[v+]', 1],
   ['[v+]nn[v+]', 50],
   ['[v+]nn[v+]', 50],
   ['[v+]pp[v+]', 50],
@@ -157,7 +152,6 @@ const consonants = [
   ['[v+]l', 30],
   ['[v+]L', 30],
   ['[v+]m', 30],
-  ['[v+]M', 1],
   ['[v+]n', 30],
   ['[v+]n', 30],
   ['[v+]p', 30],
@@ -191,7 +185,6 @@ const consonants = [
   ['ly[v+]', 1],
   ['Ly[v+]', 1],
   ['my[v+]', 1],
-  ['My[v+]', 1],
   ['ny[v+]', 1],
   ['ny[v+]', 1],
   ['py[v+]', 1],
@@ -249,7 +242,6 @@ const consonants = [
   ['lh[v+]', 4],
   ['Lh[v+]', 1],
   ['mh[v+]', 1],
-  ['Mh[v+]', 1],
   ['nh[v+]', 1],
   ['nh[v+]', 1],
   ['ph[v+]', 4],
@@ -288,9 +280,9 @@ const consonants = [
   ['[v+]fc', 4],
   ['[v+]fd', 3],
   ['[v+]ft', 3],
-  ['[v+]p.', 1],
-  ['[v+]t.', 1],
-  ['[v+]k.', 1],
+  ['[v+]p$', 1],
+  ['[v+]t$', 1],
+  ['[v+]k$', 1],
 ]
 
 const simpleVowels = [
@@ -431,7 +423,6 @@ const generate = () => {
     .replace(/ll+/g, 'll')
     .replace(/LL+/g, 'LL')
     .replace(/mm+/g, 'mm')
-    .replace(/MM+/g, 'MM')
     .replace(/nn+/g, 'nn')
     .replace(/nn+/g, 'nn')
     .replace(/pp+/g, 'pp')
@@ -475,7 +466,7 @@ const fetchVowels = ({ accent = false }) => {
   const n = getRandomElement(nasals)
 
   if (n) {
-    p = p.map(x => `${x}~`)
+    p.push('M')
   }
 
   if (p.length == 1) {
@@ -505,6 +496,7 @@ const fetchVowels = ({ accent = false }) => {
 
 const out = [`call-script-encoding`,`call-script-ascii`,`tone-script-encoding`]
 const log = text => {
+  // console.log(text)
   out.push({
     call: call(text),
     text: text,
