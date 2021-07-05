@@ -46,6 +46,7 @@ const consonants = [
   '[v+]-rk',
   '[v+]-lf',
   '[v+]-wl',
+  '[v+]-\'',
   'bl-[v+]',
   'fl-[v+]',
   'pl-[v+]',
@@ -82,6 +83,22 @@ const consonants = [
   'z-[v+]',
   'Z-[v+]',
   'q-[v+]',
+  '\'-[v+]',
+
+  'p!-[v+]',
+  't!-[v+]',
+  'k!-[v+]',
+
+  'p*-[v+]',
+  't*-[v+]',
+  'k*-[v+]',
+  'd*-[v+]',
+  'l*-[v+]',
+
+  't~-[v+]',
+  's~-[v+]',
+  'C~-[v+]',
+  'd~-[v+]',
 
   '[v+]-bb-[v+]',
   '[v+]-cc-[v+]',
@@ -404,6 +421,7 @@ const generate = ({ size = 3, withNasals = false, withTones = false } = {}) => {
     .replace(/zz+/g, 'zz')
     .replace(/ZZ+/g, 'ZZ')
     .replace(/qq+/g, 'qq')
+    .replace(/\'+/g, '\'')
 
   return string
 }
@@ -459,11 +477,11 @@ const log = text => {
   })
 }
 let i = 0
-while (i++ < 1000) {
+while (i++ < 2000) {
   log(generate({ size: 1 }))
 }
 i = 0
-while (i++ < 1000) {
+while (i++ < 2000) {
   log(generate({ size: 2 }))
 }
 i = 0
@@ -479,7 +497,7 @@ while (i++ < 1000) {
   log(generate({ size: 1, withNasals: true, withTones: true }))
 }
 i = 0
-while (i++ < 5000) {
+while (i++ < 3000) {
   log(generate({ size: 3 }))
 }
 
