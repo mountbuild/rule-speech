@@ -279,7 +279,7 @@ const consonants = [
   'spl-[v+]',
 ]
 
-const vowels = [
+const simpleVowels = [
   'i',
   'a',
   'u',
@@ -297,6 +297,13 @@ const vowels = [
   'a#',
 
   'ii',
+  'aa',
+  'uu',
+  'ee',
+  'oo',
+]
+
+const complexVowels = [
   'ia',
   'iu',
   'ie',
@@ -313,7 +320,6 @@ const vowels = [
   'ia#',
 
   'ai',
-  'aa',
   'au',
   'ae',
   'aE',
@@ -330,7 +336,6 @@ const vowels = [
 
   'ui',
   'ua',
-  'uu',
   'ue',
   'uE',
   'uU',
@@ -347,7 +352,6 @@ const vowels = [
   'ei',
   'ea',
   'eu',
-  'ee',
   'eE',
   'eU',
   'eI',
@@ -367,7 +371,6 @@ const vowels = [
   'oE',
   'oU',
   'oI',
-  'oo',
   'oA',
   'oO',
   'oo#',
@@ -379,7 +382,7 @@ const vowels = [
 
 const randomize = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 
-const generate = ({ size = 3, withNasals = false, withTones = false } = {}) => {
+const generate = ({ size = 3, withComplexVowels = false, withNasals = false, withTones = false } = {}) => {
   const parts = new Array(size)
   let i = 0
   while (i < size) {
@@ -388,8 +391,8 @@ const generate = ({ size = 3, withNasals = false, withTones = false } = {}) => {
   }
 
   let string = parts.join('-')
-    .replace(/\[v\+\]\-\[v\+\]/g, () => fetchVowels({ withNasals, withTones }))
-    .replace(/\[v\+\]/g, () => fetchVowels({ withNasals, withTones }))
+    .replace(/\[v\+\]\-\[v\+\]/g, () => fetchVowels({ withComplexVowels, withNasals, withTones }))
+    .replace(/\[v\+\]/g, () => fetchVowels({ withComplexVowels, withNasals, withTones }))
     .replace(/\-/g, '')
     .replace(/bb+/g, 'bb')
     .replace(/cc+/g, 'cc')
@@ -426,7 +429,8 @@ const generate = ({ size = 3, withNasals = false, withTones = false } = {}) => {
   return string
 }
 
-const fetchVowels = ({ withNasals = false, withTones = false }) => {
+const fetchVowels = ({ withComplexVowels = false, withNasals = false, withTones = false }) => {
+  const vowels = withComplexVowels ? simpleVowels.concat(complexVowels) : simpleVowels
   const v = vowels[randomize(0, vowels.length - 1)]
 
   let part
@@ -497,7 +501,15 @@ while (i++ < 1000) {
   log(generate({ size: 1, withNasals: true, withTones: true }))
 }
 i = 0
-while (i++ < 3000) {
+while (i++ < 1000) {
+  log(generate({ size: 1, withComplexVowels: true }))
+}
+i = 0
+while (i++ < 1000) {
+  log(generate({ size: 2, withComplexVowels: true }))
+}
+i = 0
+while (i++ < 1000) {
   log(generate({ size: 3 }))
 }
 
